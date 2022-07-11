@@ -12,6 +12,7 @@ class Form extends React.Component {
 
     handleSubmit = () => {
         this.props.getWeather(this.state.city);
+        this.setState({ city: '' });
     }
 
     handleChange = e => {
@@ -21,7 +22,11 @@ class Form extends React.Component {
     render() {
         return (
             <div>
-                <input onChange={this.handleChange} type='text' placeholder='City' />
+                <input onChange={this.handleChange}
+                    type='text'
+                    placeholder='City'
+                    value={this.state.city}
+                />
                 <button onClick={this.handleSubmit}>Get weather</button>
             </div>
         )

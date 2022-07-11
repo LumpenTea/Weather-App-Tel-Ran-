@@ -19,10 +19,11 @@ class Data extends React.Component {
     }
   }
 
-  getWeather = city => {
-    fetch(`${base_url}?q=${city}&appid=${api_key}&units=metric`)
-      .then(response => response.json())
-      .then(data => this.setState({
+  getWeather = async (city) => {
+    try {
+      const response = await fetch(`${base_url}?q=${city}&appid=${api_key}&units=metric`);
+      const data = await response.json();
+      this.setState({
         weatherInfo: {
           temp: data.main.temp,
           city: data.name,
@@ -31,14 +32,14 @@ class Data extends React.Component {
           sunset: data.sys.sunset,
           message: null
         }
-      }))
-      .catch(e => {
-        this.setState({
-          weatherInfo: {
-            message: 'Enter correct city name'
-          }
-        })
+      });
+    } catch (error) {
+      this.setState({
+        WeatherInfo: {
+          message: 'Enter correct city name'
+        }
       })
+    }
   }
 
   render() {
@@ -46,7 +47,7 @@ class Data extends React.Component {
       <div>
         <Form getWeather={this.getWeather} />
         <Weather info={this.state.weatherInfo} />
-      </div>
+      </div >
     )
   }
 
