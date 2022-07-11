@@ -29,7 +29,7 @@ class Data extends React.Component {
           country: data.sys.country,
           pressure: data.main.pressure,
           sunset: data.sys.sunset,
-          message: ''
+          message: null
         }
       }))
       .catch(e => {
