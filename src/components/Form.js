@@ -1,19 +1,31 @@
 import React from 'react';
 
-const Form = props => {
+class Form extends React.Component {
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const city = e.currentTarget.city.value.trim();
-        props.getWeather(city);
+    constructor(props) {
+        super(props);
+        this.state = {
+            city: ''
+        }
     }
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <input type='text' name='city' placeholder='City' />
-            <button type='submit'>Get weather</button>
-        </form>
-    )
+
+    handleSubmit = () => {
+        this.props.getWeather(this.state.city);
+    }
+
+    handleChange = e => {
+        this.setState({ city: e.target.value });
+    }
+
+    render() {
+        return (
+            <div>
+                <input onChange={this.handleChange} type='text' placeholder='City' />
+                <button onClick={this.handleSubmit}>Get weather</button>
+            </div>
+        )
+    }
 
 }
 
